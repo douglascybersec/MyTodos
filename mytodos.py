@@ -64,7 +64,8 @@ def add_todo():
         
         # Error MsgBox
         error_msg = CTkMessagebox(title="MyTodos-Error", 
-                  message="Check you! Add a todo.", 
+                  message="Check you! Add a todo.",
+                  fg_color="#000000", 
                   icon="cancel", 
                   width=300, height=150)
         error_msg = error_msg.get()
@@ -98,7 +99,8 @@ def remove_todo(todos_frame):
             
             # Confirmation MsgBox
             response = CTkMessagebox(title="MyTodos-Confirm", 
-                                     message="Check you! todo's not done. Remove anyway?", 
+                                     message="Check you! todo's not done. Remove anyway?",
+                                     fg_color="#000000", 
                                      icon="warning", 
                                      option_1="Yes", option_2="No",
                                      width=300, height=150)
@@ -168,7 +170,8 @@ def remove_done_todos():
     if not done_todos:
         msg= "Oops! There's no todos yet!" if not todos_data else "Oops! There's no completed todos yet!"
         CTkMessagebox(title="MyTodos-Info", 
-                      message=msg, 
+                      message=msg,
+                      fg_color="#000000", 
                       icon="info", 
                       width=300, height=150).get()
     show_progress()
