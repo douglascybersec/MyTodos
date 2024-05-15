@@ -3,7 +3,6 @@ import customtkinter
 from CTkMessagebox import CTkMessagebox
 from CTkListbox import *
 
-
 # myApp setting & more..
 customtkinter.set_appearance_mode("Dark")
 customtkinter.set_default_color_theme("GreyLight2.json")
@@ -70,7 +69,7 @@ def add_todo():
                                               font=todos_font, corner_radius=8, width=75, height=50, cursor="hand2")
         edit_button.grid(row=0, column=1, pady=5, padx=5, sticky="nswe")
 
-        remove_button = customtkinter.CTkButton(master=todos_frame, text="Remove", command=lambda :remove_todo(todos_frame),
+        remove_button = customtkinter.CTkButton(master=todos_frame, text="Remove", fg_color="#a70f0f", hover_color="#e00000", command=lambda :remove_todo(todos_frame),
                                                 font=todos_font, corner_radius=8, width=75, height=50,  cursor="hand2")
         remove_button.grid(row=0, column=2, pady=5, padx=5, sticky="nswe")
 
@@ -196,12 +195,12 @@ def load_todos():
                     todos_checkbox.grid(row=0, column=0, pady=5, padx=5, sticky="nsew")
                     todos_checkbox.select()
                     todos_data.append((todo, todos_checkbox, todos_frame))
-                    # Add Edit and Remove buttons here
+                    
                     edit_button = customtkinter.CTkButton(master=todos_frame, text="Edit", command=lambda index=len(todos_data)-1: edit_todo(index),
                                                       font=todos_font, corner_radius=8, width=75, height=50, cursor="hand2")
                     edit_button.grid(row=0, column=1, pady=5, padx=5, sticky="nswe")
 
-                    remove_button = customtkinter.CTkButton(master=todos_frame, text="Remove", command=lambda :remove_todo(todos_frame),
+                    remove_button = customtkinter.CTkButton(master=todos_frame, text="Remove", fg_color="#a70f0f", hover_color="#e00000", command=lambda :remove_todo(todos_frame),
                                                         font=todos_font, corner_radius=8, width=75, height=50,  cursor="hand2")
                     remove_button.grid(row=0, column=2, pady=5, padx=5, sticky="nswe")
                 else:
@@ -211,19 +210,21 @@ def load_todos():
                                                        font=todos_font, width=555, height=50, checkbox_height=50, checkbox_width=50)
                     todos_checkbox.grid(row=0, column=0, pady=5, padx=5, sticky="nsew")
                     todos_data.append((todo, todos_checkbox, todos_frame))
-                    # Add Edit and Remove buttons here as well
+                    
                     edit_button = customtkinter.CTkButton(master=todos_frame, text="Edit", command=lambda index=len(todos_data)-1: edit_todo(index),
                                                       font=todos_font, corner_radius=8, width=75, height=50, cursor="hand2")
                     edit_button.grid(row=0, column=1, pady=5, padx=5, sticky="nswe")
 
-                    remove_button = customtkinter.CTkButton(master=todos_frame, text="Remove", command=lambda :remove_todo(todos_frame),
+                    remove_button = customtkinter.CTkButton(master=todos_frame, text="Remove", fg_color="#a70f0f", hover_color="#e00000", command=lambda :remove_todo(todos_frame),
                                                         font=todos_font, corner_radius=8, width=75, height=50,  cursor="hand2")
                     remove_button.grid(row=0, column=2, pady=5, padx=5, sticky="nswe")
     except FileNotFoundError:
         pass
 
 
-# todos Entry & buttons
+# ---Other widgets---
+
+# Todos Entry & Buttons
 todos_entry = customtkinter.CTkEntry(master=entry_label_frame, font=todos_font, placeholder_text="Type a ToDo here...", corner_radius=8, width=670, height=50)
 todos_entry.grid(row=1, column=0, pady=5, padx=5, sticky="nswe")
 
@@ -233,7 +234,7 @@ add_button.grid(row=1, column=1, pady=5, padx=5, sticky="nswe")
 progress_button = customtkinter.CTkButton(master=control_progress_frame, text=f"{0} of {0} done", command=show_progress, font=todos_font, corner_radius=8, height=50, width=300, cursor="hand2", state="disabled")
 progress_button.pack(side="left", pady=5, padx=10)
 
-remove_all_button = customtkinter.CTkButton(master=control_progress_frame, text="Remove All Done", command=remove_done_todos, font=todos_font, corner_radius=8, height=50, width=300, cursor="hand2")
+remove_all_button = customtkinter.CTkButton(master=control_progress_frame, text="Remove All Done", fg_color="#a70f0f", hover_color="#e00000", command=remove_done_todos, font=todos_font, corner_radius=8, height=50, width=300, cursor="hand2")
 remove_all_button.pack(side="right", pady=5, padx=10)
 
 # Load & Update progress
