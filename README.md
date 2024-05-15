@@ -13,11 +13,37 @@ This is a beginner-friendly ToDo application built with Python and the CustomTki
 - [ ] _Saving and loading tasks from a file (coming up..)_
 
 
-## How to Use
+## Installation & Usage:
 
-Install CustomTkinter: If you don't have it already, install the library using pip:
-pip install customtkinter
-Run the script: Execute the Python script to launch the application.
-Add Tasks: Type your tasks into the entry field and click "Add".
-Manage Tasks: Use the checkboxes to mark tasks as complete, the "Edit" button to modify tasks, and the "Remove" button to delete individual tasks.
-Remove Completed Tasks: Click the "Remove All Done" button to clear all checked-off tasks.
+1. Clone the repository:
+```
+git clone https://github.com/douglascybersec/MyTodos.git
+
+```
+
+2. Navigate to project directory:
+```
+cd MyTodos
+
+```
+
+3. Install dependencies:
+```
+pip install -r requirements.txt
+
+```
+
+4. Run the Script:
+```
+python mytodos.py
+
+```
+### Note: _saving feature is coming up.._
+
+## License
+
+The MIT License grants the use of this project. See the [LICENSE](https://github.com/douglascybersec/MyTodos/blob/master/LICENSE) file for additional details.
+
+## Feedback & Collabs
+---
+Got a feedback or want to collaborate? I'm all circuits! Pull requests? Yes, I love them! _If not h4ck1n9 or c0d1ng, you might catch me creating cybersecurity content mostly on YouTube._ Checkout the [YouTube Channel](https://www.youtube.com/@douglascybersec) for more..
