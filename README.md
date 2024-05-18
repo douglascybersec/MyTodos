@@ -10,7 +10,7 @@ This is a beginner-friendly ToDo application built with Python and the CustomTki
 - [x] Remove individual tasks or all completed tasks at once.
 - [x] Visual progress tracker showing the number of completed tasks.
 - [x] Dark mode for a visually appealing experience.
-- [ ] _Saving and loading tasks from a file (coming up..)_
+- [x] Saving and loading tasks
 
 
 ## Installation & Usage:
