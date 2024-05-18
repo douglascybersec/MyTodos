@@ -88,55 +88,28 @@ def remove_todo(todos_frame):
             break
     else:
         return
-    todos_frame.destroy()
 
-    # Check for unmarked & prompt to cancel or proceed
-    try:
-        todos_checkbox = todos_frame.winfo_children()[0] 
-        
-        if not todos_checkbox.get():
+    # Check for unmarked & prompt to cancel or proceed 
+    if not todos_checkbox.get():
             
-            # Confirmation MsgBox
-            response = CTkMessagebox(title="MyTodos-Confirm", 
+        # Confirmation MsgBox
+        response = CTkMessagebox(title="MyTodos-Confirm", 
                                      message="Check you! todo's not done. Remove anyway?",
                                      fg_color="#000000", 
                                      icon="warning", 
                                      option_1="Yes", option_2="No",
-                                     width=300, height=150)
-            response = response.get()
-
-            # Remove frame if yes from todos_data
-            if response == "Yes":
-                todos_frame.destroy()
-                todos_data.pop(index)
-                
-                # Refresh & reposition remaining frames, & update progress_button
-                for i, (todo, todos_checkbox, todos_frame) in enumerate(todos_data):                      
-                    todos_frame.grid(row=i, column=0, padx=5, pady=5)
-                show_progress()
-                save_todos()
-            else:
-                pass 
-        else:
-            todos_frame.destroy()
-            todos_data.pop(index)
-            
-            # Refresh & reposition remaining frames, & update progress_button
-            for i, (todo, todos_checkbox, todos_frame) in enumerate(todos_data):                  
-                todos_frame.grid(row=i, column=0, padx=5, pady=5)
-            show_progress()
-            save_todos()
+                                     width=300, height=150).get()
     
-    # Tried & no frame found, remove nothing from todos_data
-    except IndexError:
-        todos_frame.destroy()
-             
-        # Refresh & reposition remaining frames
-        for i, (todo, todos_checkbox, todos_frame) in enumerate(todos_data):    
-            todos_frame.grid(row=i, column=0, padx=5, pady=5)
-        show_progress()
-        save_todos()
 
+        # Remove frame if yes from todos_data
+        if response == "Yes":
+            todos_frame.destroy()
+
+    # Refresh & reposition remaining frames, & update progress_button
+    for i, (todo, todos_checkbox, todos_frame) in enumerate(todos_data):                      
+        todos_frame.grid(row=i, column=0, padx=5, pady=5)
+    show_progress()
+    save_todos()
 
 # ---> Edit todo
 def edit_todo(index):
