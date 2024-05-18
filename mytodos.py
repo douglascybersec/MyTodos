@@ -83,7 +83,7 @@ def remove_todo(todos_frame):
     
     # Locate Index to remove & do notthing if not found
     for index, (todo, todos_checkbox, todos_frame) in enumerate(todos_data):
-        if todos_frame == todos_frame:
+        if todos_frame:
             todos_data.pop(index)
             break
     else:
@@ -99,7 +99,6 @@ def remove_todo(todos_frame):
                                      icon="warning", 
                                      option_1="Yes", option_2="No",
                                      width=300, height=150).get()
-    
 
         # Remove frame if yes from todos_data
         if response == "Yes":
