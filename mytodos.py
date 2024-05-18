@@ -2,7 +2,8 @@
 import customtkinter
 from CTkMessagebox import CTkMessagebox
 from CTkListbox import *
-
+import pickle
+import os
 
 # myApp setting & more..
 customtkinter.set_appearance_mode("Dark")
@@ -36,14 +37,12 @@ def create_frame():
     
 # ---> Add todo to listbox(can also use scrollableframe)
 def add_todo():
-
     todo = todos_entry.get()
-    
     if todo:
         todos_frame = create_frame()
         
-        todos_checkbox = customtkinter.CTkCheckBox(master=todos_frame, text=todo, command=lambda:checked(todos_checkbox),
-                                                   font=todos_font, width=555, height=50, checkbox_height=50, checkbox_width=50)
+        todos_checkbox = customtkinter.CTkCheckBox(master=todos_frame, text=todo, font=todos_font, width=555, height=50, checkbox_height=50, checkbox_width=50)
+        todos_checkbox.configure(command=lambda cb=todos_checkbox: checked(cb))
         todos_checkbox.grid(row=0, column=0, pady=5, padx=5, sticky="nsew")
         todos_data.append((todo, todos_checkbox, todos_frame))
         
@@ -51,17 +50,15 @@ def add_todo():
                                               font=todos_font, corner_radius=8, width=75, height=50, cursor="hand2")
         edit_button.grid(row=0, column=1, pady=5, padx=5, sticky="nswe")
 
-        remove_button = customtkinter.CTkButton(master=todos_frame, text="Remove", fg_color="#a70f0f", hover_color="#e00000", command=lambda :remove_todo(todos_frame),
-                                                font=todos_font, corner_radius=8, width=75, height=50,  cursor="hand2")
+        remove_button = customtkinter.CTkButton(master=todos_frame, text="Remove", fg_color="#a70f0f", hover_color="#e00000", command=lambda frame=todos_frame: remove_todo(frame),
+                                                font=todos_font, corner_radius=8, width=75, height=50, cursor="hand2")
         remove_button.grid(row=0, column=2, pady=5, padx=5, sticky="nswe")
 
         todos_entry.delete(0, customtkinter.END)
         
         show_progress()
         save_todos()
-        
     else:
-        
         # Error MsgBox
         error_msg = CTkMessagebox(title="MyTodos-Error", 
                   message="Check you! Add a todo.",
@@ -69,27 +66,29 @@ def add_todo():
                   icon="cancel", 
                   width=300, height=150)
         error_msg = error_msg.get()
-        
-        
+       
 # ---> Cross/Uncross when todo is checked/done  
 def checked(todos_checkbox):
     checkbox_state = todos_checkbox.get()
-    if not checkbox_state:
-        todos_checkbox.configure(font=todos_font)    
-    else:
+    if checkbox_state:
         todos_checkbox.configure(font=todos_font_checked)
+    else:
+        todos_checkbox.configure(font=todos_font)
     show_progress()
     save_todos()
+
 
 # ---> Remove todo & destroy parent_frame
 def remove_todo(todos_frame):
     
     # Locate Index to remove & do notthing if not found
-    for index, (todo, todos_checkbox, frame) in enumerate(todos_data):
-        if frame == todos_frame:
+    for index, (todo, todos_checkbox, todos_frame) in enumerate(todos_data):
+        if todos_frame == todos_frame:
+            todos_data.pop(index)
             break
     else:
         return
+    todos_frame.destroy()
 
     # Check for unmarked & prompt to cancel or proceed
     try:
@@ -179,11 +178,35 @@ def remove_done_todos():
 
 # ---> save todos in txt file -todos.txt (use pickle or sqlite)
 def save_todos():
-    ...
+    with open("todos.txt", "wb") as file:
+        todos_to_save = [(todo, todos_checkbox.get()) for todo, todos_checkbox, todos_frame in todos_data]
+        pickle.dump(todos_to_save, file)
 
 # ---> Load todos from saved txt file
 def load_todos():
-    ...
+    if os.path.exists("todos.txt"):
+        with open("todos.txt", "rb") as file:
+            todos_to_load = pickle.load(file)
+            for todo, is_checked in todos_to_load:
+                todos_frame = create_frame()
+                todos_checkbox = customtkinter.CTkCheckBox(master=todos_frame, text=todo, font=todos_font, width=555, height=50, checkbox_height=50, checkbox_width=50)
+                todos_checkbox.configure(command=lambda cb=todos_checkbox: checked(cb))
+                todos_checkbox.grid(row=0, column=0, pady=5, padx=5, sticky="nsew")
+        
+                if is_checked:
+                    todos_checkbox.select()
+                    todos_checkbox.configure(font=todos_font_checked)
+                todos_data.append((todo, todos_checkbox, todos_frame))
+                
+                edit_button = customtkinter.CTkButton(master=todos_frame, text="Edit", command=lambda index=len(todos_data)-1: edit_todo(index),
+                                                      font=todos_font, corner_radius=8, width=75, height=50, cursor="hand2")
+                edit_button.grid(row=0, column=1, pady=5, padx=5, sticky="nswe")
+
+                remove_button = customtkinter.CTkButton(master=todos_frame, text="Remove", fg_color="#a70f0f", hover_color="#e00000", command=lambda frame=todos_frame: remove_todo(frame),
+                                                        font=todos_font, corner_radius=8, width=75, height=50,  cursor="hand2")
+                remove_button.grid(row=0, column=2, pady=5, padx=5, sticky="nswe")
+
+
 
 # # ---> Show todos_progress, update dynamically
 def show_progress():
