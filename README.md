@@ -1,6 +1,9 @@
 # **MyToDos - A Simple ToDo App with CustomTkinter**
 
-This is a beginner-friendly ToDo application built with Python and the CustomTkinter library. It allows you to add, edit, check off, and remove tasks.
+![image](https://github.com/douglascybersec/MyTodos/blob/8bef5852e49b0f3c62eb85c672f92d7044022667/image.PNG)
+
+
+> This is a beginner-friendly ToDo application built with Python and the CustomTkinter library. It allows you to add, edit, check off, and remove tasks.
 
 ## Features
 
